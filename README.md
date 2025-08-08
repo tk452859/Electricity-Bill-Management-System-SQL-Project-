@@ -76,5 +76,5 @@ Relational Database Design**
 Add stored procedures for automated bill calculation.
 Implement triggers to update invoice records automatically.
 
-Develop a front-end interface to visualize reports and billing info.
+Develop a front-end interface to visualize reports and billing info.**
 
