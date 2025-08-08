@@ -12,11 +12,11 @@ tariff:	Defines different tariff types for billing calculation.
 invoice:	Stores invoice details linking meter readings, tariffs, and electricity boards.
 admin:	Contains admin users managing customer data.**
 
-Relationships
+**Relationships
 Each account belongs to a customer (accounts.cust_id → customer.cust_id).
 Each billing record links to an account and customer (billing.acc_id, billing.cust_id).
 Invoices relate to electricity boards, tariffs, and billing via foreign keys.
-Admins are linked to customers for administrative purposes.
+Admins are linked to customers for administrative purposes.**
 
 Sample Queries
 /*Basic Data Retrieval*/
@@ -65,12 +65,12 @@ JOIN billing b ON c.cust_id = b.cust_id;
 **How to Run
 Import the SQL dump file into your MySQL server or use MySQL Workbench.
 The database smart_meter along with all tables and sample data will be created automatically.
-Run example queries or modify for your use case.
+Run example queries or modify for your use case.**
 
 **Technologies Used
 MySQL
 SQL Queries, Joins, Views, Constraints
-Relational Database Design
+Relational Database Design**
 
 **Future Enhancements
 Add stored procedures for automated bill calculation.
