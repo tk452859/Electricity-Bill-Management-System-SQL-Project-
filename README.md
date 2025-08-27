@@ -1,80 +1,45 @@
-**Electricity Bill Management System**
-Project Overview
-This project is a relational database system designed to manage electricity billing data efficiently. It simulates a real-world electricity provider’s database with customers, accounts, billing records, tariffs, and invoices.
+# Electricity Bill Management System
 
-**Database Structure & Tables**
-Table Name	Description
-**customer:	Stores customer details including name, address, city, and state.
-accounts:	Stores account details linked to customers.
-billing	Records: monthly electricity usage, units consumed, rate per unit, and total bill amount.
-elec_board:	Represents various electricity boards/companies supplying power.
-tariff:	Defines different tariff types for billing calculation.
-invoice:	Stores invoice details linking meter readings, tariffs, and electricity boards.
-admin:	Contains admin users managing customer data.**
+A robust and efficient **SQL Database Project** designed to automate the core operations of an electricity utility provider. This system manages customer information, meter data, electricity consumption tracking, bill generation, and payment processing.
 
-**Relationships
-Each account belongs to a customer (accounts.cust_id → customer.cust_id).
-Each billing record links to an account and customer (billing.acc_id, billing.cust_id).
-Invoices relate to electricity boards, tariffs, and billing via foreign keys.
-Admins are linked to customers for administrative purposes.**
+## Features
 
-Sample Queries
-/*Basic Data Retrieval*/
+-   **Customer Management**: Store and manage customer details.
+-   **Meter Management**: Link multiple meters to customers.
+-   **Automated Billing**: Calculate bills based on meter readings and tariffs.
+-   **Payment Processing**: Record payments and update bill statuses.
+-   **Data Integrity**: Enforced through primary and foreign keys.
 
-SELECT * FROM customer;
-SELECT * FROM billing WHERE cust_id = 111;
+## Database Schema
 
-/*Filtering and Sorting*/
--- Bills greater than ₹5000
-SELECT * FROM billing WHERE total_amount > 5000;
-
--- Sort bills by amount descending
-SELECT * FROM billing ORDER BY total_amount DESC;
-
-/*Aggregations and Grouping*/
-
--- Total revenue collected
-SELECT SUM(total_amount) AS Total_Revenue FROM billing;
-
--- Average monthly units per customer
-SELECT cust_id, AVG(monthly_units) AS Avg_Units FROM billing GROUP BY cust_id;
-
--- Top 5 customers by revenue
-SELECT cust_id, SUM(total_amount) AS TotalPaid
-FROM billing
-GROUP BY cust_id
-ORDER BY TotalPaid DESC
-LIMIT 5;
-
-/*Views*/
-
-CREATE VIEW high_value_customers AS
-SELECT cust_id, SUM(total_amount) AS total_paid
-FROM billing
-GROUP BY cust_id
-HAVING total_paid > 5000;
-
-/*Join Example*/
-
-SELECT c.cust_name, b.monthly_units, b.total_amount
-FROM customer c
-JOIN billing b ON c.cust_id = b.cust_id;
+The main tables include:
+-   `customers`: Stores customer details.
+-   `meters`: Links meters to customers.
+-   `bills`: Stores billing records and calculates charges.
+-   `payments`: Tracks payment transactions.
 
 
+## Technology Stack
 
-**How to Run
-Import the SQL dump file into your MySQL server or use MySQL Workbench.
-The database smart_meter along with all tables and sample data will be created automatically.
-Run example queries or modify for your use case.**
+-   **Database**: MySQL
 
-**Technologies Used
-MySQL
-SQL Queries, Joins, Views, Constraints
-Relational Database Design**
+## Installation & Setup
 
-**Future Enhancements
-Add stored procedures for automated bill calculation.
-Implement triggers to update invoice records automatically.
+1.  **Prerequisites**: Ensure MySQL is installed and running.
+2.  **Create the Database**:
+    ```sql
+    CREATE DATABASE electricity_bill_db;
+    USE electricity_bill_db;
+    ```
+3.  **Import the Schema**:
+    -   Execute the `electricity_bill_system.sql` script in your MySQL client to create the tables and sample data.
 
-Develop a front-end interface to visualize reports and billing info.**
+## Example Queries
 
+**1. Get all bills for a customer:**
+```sql
+SELECT c.name, b.bill_id, b.amount, b.status
+FROM customers c
+JOIN meters m ON c.customer_id = m.customer_id
+JOIN bills b ON m.meter_id = b.meter_id
+WHERE c.customer_id = 1;
